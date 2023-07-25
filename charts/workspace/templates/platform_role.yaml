@@ -1,0 +1,110 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    {{- include "e6data.common.labels" . | nindent 4 }}
+  name: {{ include "e6data.name" . }}-platform-role
+  {{ include "e6data.namespace" . }}
+rules:
+  - apiGroups:
+      - ""
+    resources: 
+      - pods/portforward
+    verbs: 
+      - get
+      - create
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+      - nodes/proxy
+      - nodes/metrics
+      - services
+      - endpoints
+      - pods
+      - ingresses
+      - configmaps
+      - secrets
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update
+      - delete
+      - patch
+  - apiGroups:
+      - "extensions"
+      - "networking.k8s.io"
+    resources:
+      - ingresses/status
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - "batch"
+    resources:
+      - jobs
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update  
+      - delete 
+  - apiGroups:
+      - "batch"
+    resources:
+      - jobs/status
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "apps"
+    resources:
+      - deployments
+      - daemonsets
+      - statefulsets
+      - daemonsets/status
+      - deployments/status
+      - statefulsets/status
+      - replicasets
+      - replicasets/status
+      - deployments/scale
+      - deployments/scale/status
+      - deployments/patch
+      - deployments/patch/status
+      - deployments/rollback
+
+    verbs:
+      - get
+      - list
+      - watch 
+      - create
+      - update
+      - delete  
+      - patch    
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    {{- include "e6data.common.labels" . | nindent 4 }}
+  name: {{ include "e6data.name" . }}-platform-role-binding
+  {{ include "e6data.namespace" . }}  
+subjects:
+{{- range $rbacUser := .Values.cloud.control_plane_user }}
+  - kind: User
+    name: {{ $rbacUser | quote }}
+{{ end }}    
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "e6data.name" . }}-platform-role
+
