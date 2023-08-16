@@ -1,3 +1,4 @@
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -7,42 +8,13 @@ metadata:
 rules:
 - apiGroups:
   - ""
-  - discovery.k8s.io
-  - networking.k8s.io
   resources:
-  - endpoints
-  - endpointslices
-  - ingresses
   - nodes
   - nodes/proxy
-  - pods
   - services
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
+  - endpoints
   - pods
-  - pods/log
-  - namespaces
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - monitoring.grafana.com
-  resources:
-  - podlogs
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - monitoring.coreos.com
-  resources:
-  - prometheusrules
+  - events
   verbs:
   - get
   - list
