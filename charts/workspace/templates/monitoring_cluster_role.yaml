@@ -8,7 +8,6 @@ metadata:
 rules:
 - apiGroups:
   - ""
-  - "apps"
   resources:
   - nodes
   - nodes/proxy
@@ -16,15 +15,18 @@ rules:
   - endpoints
   - pods
   - events
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - "apps"
+  resources:
   - replicasets
   verbs:
   - get
   - list
   - watch
-- nonResourceURLs:
-  - /metrics
-  verbs:
-  - get
 
 --- 
 apiVersion: rbac.authorization.k8s.io/v1
