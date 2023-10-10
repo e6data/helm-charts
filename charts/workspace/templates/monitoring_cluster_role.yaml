@@ -23,6 +23,8 @@ rules:
   - "apps"
   resources:
   - replicasets
+  - deployments
+  - statefulsets
   verbs:
   - get
   - list
