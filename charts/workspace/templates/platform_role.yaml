@@ -16,13 +16,8 @@ rules:
   - apiGroups:
       - ""
     resources:
-      - nodes
-      - nodes/proxy
-      - nodes/metrics
       - services
-      - endpoints
       - pods
-      - ingresses
       - configmaps
       - secrets
     verbs:
@@ -39,18 +34,6 @@ rules:
       - events
     verbs:
       - watch
-  - apiGroups:
-      - "extensions"
-      - "networking.k8s.io"
-    resources:
-      - ingresses/status
-      - ingresses
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - delete
   - apiGroups:
       - "batch"
     resources:
@@ -86,7 +69,6 @@ rules:
       - deployments/patch
       - deployments/patch/status
       - deployments/rollback
-
     verbs:
       - get
       - list
