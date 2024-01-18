@@ -14,6 +14,21 @@ rules:
       - get
       - create
   - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - list
+      - watch
+      - get
+      - create
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses/status
+    verbs:
+      - update
+  - apiGroups:
       - ""
     resources:
       - services
