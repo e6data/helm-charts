@@ -22,6 +22,9 @@ rules:
       - watch
       - get
       - create
+      - patch
+      - delete
+      - update
   - apiGroups:
       - networking.k8s.io
     resources:
