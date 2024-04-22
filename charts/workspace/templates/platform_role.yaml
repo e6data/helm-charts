@@ -103,20 +103,6 @@ rules:
       - update
       - delete  
       - patch
-  - apiGroups:
-      - "karpenter.sh"
-    resources:
-      - nodepools
-      - nodepools/status
-      - nodeclasses
-    verbs:
-      - get
-      - list
-      - watch 
-      - create
-      - update
-      - delete  
-      - patch    
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1

@@ -1,0 +1,54 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    {{- include "e6data.common.labels" . | nindent 4 }}
+  name: {{ include "e6data.name" . }}-platform-role
+  {{ include "e6data.namespace" . }}
+rules:
+  - apiGroups:
+      - "karpenter.sh"
+    resources: 
+      - nodepools
+      - nodepools/status
+    verbs: 
+      - get
+      - list
+      - watch   
+      - update
+      - patch
+      - delete
+    resourceNames:
+      - {{ Values.karpenter.nodepool }}
+  - apiGroups:
+      - "karpenter.k8s.aws"
+    resources: 
+      - ec2nodeclasses
+      - ec2nodeclasses/status
+    verbs: 
+      - get
+      - list
+      - watch   
+      - update
+      - patch
+      - delete
+    resourceNames:
+      - {{ Values.karpenter.nodeclass }}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    {{- include "e6data.common.labels" . | nindent 4 }}
+  name: {{ include "e6data.name" . }}-platform-role-binding
+  {{ include "e6data.namespace" . }}  
+subjects:
+{{- range $rbacUser := .Values.cloud.control_plane_user }}
+  - kind: User
+    name: {{ $rbacUser | quote }}
+{{ end }}    
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "e6data.name" . }}-platform-role
