@@ -3,7 +3,7 @@ kind: ClusterRole
 metadata:
   labels:
     {{- include "e6data.common.labels" . | nindent 4 }}
-  name: {{ include "e6data.name" . }}-platform-role
+  name: {{ include "e6data.name" . }}-karpenter-role
   {{ include "e6data.namespace" . }}
 rules:
   - apiGroups:
@@ -41,7 +41,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     {{- include "e6data.common.labels" . | nindent 4 }}
-  name: {{ include "e6data.name" . }}-platform-role-binding
+  name: {{ include "e6data.name" . }}-karpenter-role-binding
   {{ include "e6data.namespace" . }}  
 subjects:
 {{- range $rbacUser := .Values.cloud.control_plane_user }}
@@ -51,4 +51,4 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ include "e6data.name" . }}-platform-role
+  name: {{ include "e6data.name" . }}-karpenter-role
