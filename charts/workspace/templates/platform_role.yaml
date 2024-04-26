@@ -95,6 +95,7 @@ rules:
       - deployments/patch
       - deployments/patch/status
       - deployments/rollback
+      - persistentvolumeclaims
     verbs:
       - get
       - list
