@@ -19,7 +19,7 @@ rules:
       - patch
       - delete
     resourceNames:
-      - {{ Values.karpenter.nodepool }}
+      - {{ .Values.karpenter.nodepool }}
   - apiGroups:
       - "karpenter.k8s.aws"
     resources: 
