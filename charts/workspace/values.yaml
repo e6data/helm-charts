@@ -21,6 +21,12 @@ cloud:
   # - "arn:aws:iam::115022675482:role/dev-e6-helm-op-whyezopu"
   # - "e6-helm-op-whyezopu"
 
+karpenter:
+  nodepool: "e6data-nodepool"
+  ## Name of the karpenter nodepool
+  nodeclass: "e6data-nodeclass"
+  ## Name of the karpenter nodeclass
+
 # Extra manifests to deploy as an array
 extraManifests: []
   # - apiVersion: v1

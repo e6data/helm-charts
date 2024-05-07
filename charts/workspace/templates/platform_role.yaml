@@ -95,6 +95,7 @@ rules:
       - deployments/patch
       - deployments/patch/status
       - deployments/rollback
+      - persistentvolumeclaims
     verbs:
       - get
       - list
@@ -102,7 +103,7 @@ rules:
       - create
       - update
       - delete  
-      - patch    
+      - patch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
