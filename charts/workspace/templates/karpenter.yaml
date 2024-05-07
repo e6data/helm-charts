@@ -33,7 +33,7 @@ rules:
       - patch
       - delete
     resourceNames:
-      - {{ Values.karpenter.nodeclass }}
+      - {{ .Values.karpenter.nodeclass }}
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
