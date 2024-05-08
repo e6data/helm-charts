@@ -17,10 +17,18 @@ rules:
       - ""
     resources: 
       - pods/status
+      - events
     verbs: 
       - get
       - list
-      - watch    
+      - watch   
+  - apiGroups:
+      - ""
+    resources: 
+      - pods/log
+    verbs: 
+      - get
+      - list      
   - apiGroups:
       - networking.k8s.io
     resources:
