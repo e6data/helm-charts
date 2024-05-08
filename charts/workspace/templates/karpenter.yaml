@@ -15,6 +15,12 @@ rules:
       - get
       - list
       - watch   
+  - apiGroups:
+      - "karpenter.sh"
+    resources: 
+      - nodepools
+      - nodepools/status
+    verbs: 
       - update
       - patch
       - delete
@@ -29,6 +35,12 @@ rules:
       - get
       - list
       - watch   
+  - apiGroups:
+      - "karpenter.k8s.aws"
+    resources: 
+      - ec2nodeclasses
+      - ec2nodeclasses/status
+    verbs: 
       - update
       - patch
       - delete
