@@ -10,16 +10,29 @@ rules:
       - "karpenter.sh"
     resources: 
       - nodepools
-      - nodepools/status
-    verbs: 
-      - get
-      - list
-      - watch   
+    verbs:   
       - update
       - patch
       - delete
     resourceNames:
       - {{ .Values.karpenter.nodepool }}
+  - apiGroups:
+      - "karpenter.sh"
+    resources: 
+      - nodepools
+      - nodepools/status
+    verbs: 
+      - get
+      - list
+      - watch 
+  - apiGroups:
+      - ""
+    resources: 
+      - nodes
+    verbs: 
+      - get
+      - list
+      - watch     
   - apiGroups:
       - "karpenter.k8s.aws"
     resources: 
@@ -29,6 +42,11 @@ rules:
       - get
       - list
       - watch   
+  - apiGroups:
+      - "karpenter.k8s.aws"
+    resources: 
+      - ec2nodeclasses
+    verbs:  
       - update
       - patch
       - delete
