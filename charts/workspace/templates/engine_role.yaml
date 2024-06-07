@@ -4,7 +4,7 @@ metadata:
   labels:
     {{- include "e6data.common.labels" . | nindent 4 }}
   name: {{ include "e6data.name" . }}-engine-role
-  {{ include "e6data.namespace" . }}
+  namespace: {{ include "e6data.namespace" . }}
 rules:
   - apiGroups:
       - ""
@@ -52,7 +52,7 @@ metadata:
   labels:
     {{- include "e6data.common.labels" . | nindent 4 }}
   name: {{ include "e6data.name" . }}-engine-role-binding
-  {{ include "e6data.namespace" . }}  
+  namespace: {{ include "e6data.namespace" . }}  
 subjects:
   - kind: ServiceAccount
     name: {{ include "e6data.name" . }}
@@ -61,4 +61,3 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: {{ include "e6data.name" . }}-engine-role
-
