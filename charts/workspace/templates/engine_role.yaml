@@ -1,0 +1,64 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    {{- include "e6data.common.labels" . | nindent 4 }}
+  name: {{ include "e6data.name" . }}-engine-role
+  {{ include "e6data.namespace" . }}
+rules:
+  - apiGroups:
+      - ""
+    resources: 
+      - pods/status
+      - events
+    verbs: 
+      - get
+      - list
+      - watch       
+  - apiGroups:
+      - ""
+    resources:
+      - services
+      - pods
+      # - configmaps
+      # - secrets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "apps"
+    resources:
+      - deployments
+      # - daemonsets
+      # - statefulsets
+      # - daemonsets/status
+      - deployments/status
+      # - statefulsets/status
+      - replicasets
+      - replicasets/status
+      - deployments/scale
+      - deployments/scale/status
+      # - deployments/patch/status
+    verbs:
+      - get
+      - list
+      - watch 
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    {{- include "e6data.common.labels" . | nindent 4 }}
+  name: {{ include "e6data.name" . }}-engine-role-binding
+  {{ include "e6data.namespace" . }}  
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "e6data.name" . }}
+    namespace: {{ include "e6data.namespace" . }}  
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "e6data.name" . }}-engine-role
+
