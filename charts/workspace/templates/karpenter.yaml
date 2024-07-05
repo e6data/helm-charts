@@ -1,4 +1,4 @@
-{{- if eq .Values.cloud.type "AWS" }}
+{{- if or (eq .Values.cloud.type "AWS") (eq .Values.cloud.type "Azure") }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
