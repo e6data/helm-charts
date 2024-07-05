@@ -1,10 +1,10 @@
 cloud:
-  # GCP, AWS, Azure
+  # GCP, AWS, AZURE
   type: "AWS"
   ## OIDC value for the cloud provider for query engine access with Cloud Resources   
   # GCP: Service account email with GCS read access 
   # AWS: IAM role ARN with s3 and/or glue read access
-  # Azure:  Client ID of User assigned Managed Identity
+  # AZURE:  Client ID of User assigned Managed Identity
   oidc_value: "arn:aws:iam::12345678:role/s3-glue-access-role"
   ## Cross Account user for kubernetes RBAC access to deploy and manage query engine
   # GCP: 
@@ -12,7 +12,7 @@ cloud:
   # - Service account ID with GKE viewer access
   # AWS:
   # - IAM role ARN with EKS viewer access
-  # Azure:
+  # AZURE:
   # - Client ID of Service Principal App with AKS viewer access
   control_plane_user:
     - "arn:aws:iam::12345678:role/eks-viewer-role"

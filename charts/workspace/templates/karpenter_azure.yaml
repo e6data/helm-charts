@@ -1,4 +1,4 @@
-{{- if eq .Values.cloud.type "AWS" }}
+{{- if eq .Values.cloud.type "AZURE" }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -35,18 +35,18 @@ rules:
       - list
       - watch     
   - apiGroups:
-      - "karpenter.k8s.aws"
+      - "karpenter.azure.com"
     resources: 
-      - ec2nodeclasses
-      - ec2nodeclasses/status
+      - aksnodeclasses
+      - aksnodeclasses/status
     verbs: 
       - get
       - list
       - watch   
   - apiGroups:
-      - "karpenter.k8s.aws"
+      - "karpenter.azure.com"
     resources: 
-      - ec2nodeclasses
+      - aksnodeclasses
     verbs:  
       - update
       - patch
