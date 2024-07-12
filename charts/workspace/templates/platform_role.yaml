@@ -125,6 +125,18 @@ rules:
       - update
       - delete
       - patch
+  - apiGroups: 
+      - "spv.no"
+    resources: 
+      - azurekeyvaultsecrets
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update
+      - delete      
+      
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
