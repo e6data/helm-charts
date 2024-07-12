@@ -125,6 +125,7 @@ rules:
       - update
       - delete
       - patch
+{{- if eq .Values.cloud.type "AZURE" }}      
   - apiGroups: 
       - "spv.no"
     resources: 
@@ -135,7 +136,8 @@ rules:
       - list
       - watch
       - update
-      - delete      
+      - delete
+{{ end }} 
       
 
 ---
