@@ -125,6 +125,20 @@ rules:
       - update
       - delete
       - patch
+{{- if eq .Values.cloud.type "AZURE" }}      
+  - apiGroups: 
+      - "spv.no"
+    resources: 
+      - azurekeyvaultsecrets
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update
+      - delete
+{{ end }} 
+      
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
