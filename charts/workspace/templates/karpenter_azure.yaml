@@ -106,6 +106,6 @@ roleRef:
   name: {{ include "e6data.name" . }}-karpenter-token-update
 subjects:
   - kind: ServiceAccount
-    name:  {{ include "e6data.name" . }}-karpenter-token-update
+    name:  karpenter-token-update
     namespace: kube-system
 {{- end }}
