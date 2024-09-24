@@ -1,6 +1,6 @@
 cloud:
   # GCP, AWS, AZURE
-  type: "AWS"
+  type: "AZURE"
   ## OIDC value for the cloud provider for query engine access with Cloud Resources   
   # GCP: Service account email with GCS read access 
   # AWS: IAM role ARN with s3 and/or glue read access
