@@ -15,8 +15,7 @@ rules:
       - update
       - patch
       - delete
-    resourceNames:
-      - {{ .Values.karpenter.nodepool }}
+      - create
   - apiGroups:
       - "karpenter.sh"
     resources: 
@@ -51,8 +50,7 @@ rules:
       - update
       - patch
       - delete
-    resourceNames:
-      - {{ .Values.karpenter.nodeclass }}
+      - create
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
