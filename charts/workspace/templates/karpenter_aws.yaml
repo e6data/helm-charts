@@ -35,6 +35,7 @@ rules:
       - watch 
       - delete
       - update
+      - patch
   - apiGroups:
       - "karpenter.k8s.aws"
     resources: 
