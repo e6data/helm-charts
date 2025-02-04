@@ -32,7 +32,9 @@ rules:
     verbs: 
       - get
       - list
-      - watch     
+      - watch 
+      - delete
+      - update
   - apiGroups:
       - "karpenter.k8s.aws"
     resources: 
