@@ -171,11 +171,6 @@ rules:
       - ""
     resources: 
       - nodes
-      - nodes/proxy
-      - services
-      - endpoints
-      - pods
-      - events
     verbs: 
       - get
       - list
