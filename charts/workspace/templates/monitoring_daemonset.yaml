@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: e6data-monitoring-agent
+  labels:
+    {{- include "e6data.common.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "e6data.common.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "e6data.common.labels" . | nindent 8 }}
+    spec:
+      serviceAccount: e6data-agent
+      containers:
+        - name: e6data-agent
+          image: "{{ .Values.monitoring.image.repository }}/{{ .Values.monitoring.agent.name }}:{{ .Values.monitoring.agent.tag }}"
+          env:
+            {{- range $key, $value := .Values.monitoring.agent.environmentVariables }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }} 
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace      
+          ports:
+            - containerPort: 12347
+              name: faro
+          volumeMounts:
+            - name: varlog
+              mountPath: /var/log
+              readOnly: true
+            - name: dockercontainers
+              mountPath: /var/lib/docker/containers
+              readOnly: true  
+      nodeSelector:
+        {{- range $key, $value := .Values.monitoring.agent.nodeSelector }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}       
+      volumes:
+        - name: varlog
+          hostPath:
+            path: /var/log
+        - name: dockercontainers
+          hostPath:
+            path: /var/lib/docker/containers
