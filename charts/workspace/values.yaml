@@ -37,3 +37,20 @@ extraManifests: []
   #   data:
   #     extra-data: "value"
 
+monitoring:
+  image:
+    repository: e6data
+  agent:
+    tag: 1.0.0
+    name: monitoring-agent
+    nodeSelector:
+      app: e6data
+      e6data-workspace-name: default
+    environmentVariables:
+      TENANT: alias
+      DOMAIN: e6data.com
+      AGENT_MODE: flow
+      AGENT_LABEL_KEY: app.kubernetes.io/name
+      AGENT_LABEL_VALUE_ALB_CONTROLLER: aws-load-balancer-controller
+      AGENT_LABEL_VALUE_KARPENTER: karpenter
+
