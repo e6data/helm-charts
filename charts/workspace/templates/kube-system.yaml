@@ -1,0 +1,144 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    {{- include "e6data.common.labels" . | nindent 4 }}
+  name: {{ include "e6data.name" . }}-platform-kube-system-role
+  namespace: kube-system
+rules:
+  - apiGroups:
+      - ""
+    resources: 
+      - pods/portforward
+    verbs: 
+      - get
+      - create
+  - apiGroups:
+      - ""
+    resources: 
+      - pods/status
+      - events
+    verbs: 
+      - get
+      - list
+      - watch   
+  - apiGroups:
+      - ""
+    resources: 
+      - pods/log
+    verbs: 
+      - get
+      - list      
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - list
+      - watch
+      - get
+      - create
+      - patch
+      - delete
+      - update
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses/status
+    verbs:
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - services
+      - pods
+      - configmaps
+      - secrets
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update
+      - delete
+      - patch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - watch
+  - apiGroups:
+      - "batch"
+    resources:
+      - jobs
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - update  
+      - delete 
+  - apiGroups:
+      - "batch"
+    resources:
+      - jobs/status
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "apps"
+    resources:
+      - deployments
+      - daemonsets
+      - statefulsets
+      - daemonsets/status
+      - deployments/status
+      - statefulsets/status
+      - replicasets
+      - replicasets/status
+      - deployments/scale
+      - deployments/scale/status
+      - deployments/patch
+      - deployments/patch/status
+      - deployments/rollback
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch 
+      - create
+      - update
+      - delete  
+      - patch
+  - apiGroups:
+      - "policy"
+    resources:
+      - poddisruptionbudgets
+      - poddisruptionbudgets/status
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - delete
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    {{- include "e6data.common.labels" . | nindent 4 }}
+  name: {{ include "e6data.name" . }}-platform-kube-system-role-binding
+  namespace: kube-system 
+subjects:
+{{- range $rbacUser := .Values.cloud.control_plane_user }}
+  - kind: User
+    name: {{ $rbacUser | quote }}
+{{ end }}    
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "e6data.name" . }}-platform-kube-system-role
