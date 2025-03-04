@@ -37,3 +37,6 @@ extraManifests: []
   #   data:
   #     extra-data: "value"
 
+debug_namespaces:
+  - aws-alb-controller
+  - kube-system
