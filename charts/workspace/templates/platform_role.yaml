@@ -125,6 +125,13 @@ rules:
       - update
       - delete
       - patch
+  - apiGroups:
+      - ""
+    resources:
+      - serviceaccounts
+    verbs:
+      - get
+      - list      
 {{- if eq .Values.cloud.type "AZURE" }}      
   - apiGroups: 
       - "spv.no"
