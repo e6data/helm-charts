@@ -162,6 +162,7 @@ rules:
     resources:
     - gateways
     - httproutes
+    - grpcroutes
     verbs:
     - get
     - list
