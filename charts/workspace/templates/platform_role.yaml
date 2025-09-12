@@ -145,6 +145,32 @@ rules:
       - update
       - delete
       - patch
+  - apiGroups:
+    - alb.networking.azure.io
+    resources:
+    - healthcheckpolicy
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - delete
+    - patch
+  - apiGroups:
+    - gateway.networking.k8s.io
+    resources:
+    - gateways
+    - httproutes
+    - grpcroutes
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - delete
+    - patch
 {{ end }} 
  
 ---
