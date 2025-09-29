@@ -149,6 +149,7 @@ rules:
     - alb.networking.azure.io
     resources:
     - healthcheckpolicy
+    - routepolicies
     verbs:
     - get
     - list
