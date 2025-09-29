@@ -3,6 +3,15 @@ entries:
   workspace:
   - apiVersion: v2
     appVersion: v0.1.1
+    created: "2025-09-29T10:01:19.262523504Z"
+    digest: e5a3167200e2cea15bb8c66323e45de691eb95a6cc038aa35cb3e9067721c4ab
+    kubeVersion: '>=1.16.0-0'
+    name: workspace
+    urls:
+    - https://github.com/e6data/helm-charts/releases/download/workspace-2.1.11/workspace-2.1.11.tgz
+    version: 2.1.11
+  - apiVersion: v2
+    appVersion: v0.1.1
     created: "2025-09-12T09:08:11.640725129Z"
     digest: 8416ccaaf8a7fd4687cd07b36588398f0d492d657bd2f5e0eb58ac3fdb2c4258
     kubeVersion: '>=1.16.0-0'
@@ -307,4 +316,4 @@ entries:
     urls:
     - https://github.com/e6x-labs/helm-charts/releases/download/workspace-1.0.1/workspace-1.0.1.tgz
     version: 1.0.1
-generated: "2025-09-12T09:08:11.6410045Z"
+generated: "2025-09-29T10:01:19.262722294Z"
