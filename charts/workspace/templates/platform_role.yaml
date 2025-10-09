@@ -103,7 +103,6 @@ rules:
       - deployments/patch
       - deployments/patch/status
       - deployments/rollback
-      - persistentvolumeclaims
     verbs:
       - get
       - list
@@ -131,7 +130,19 @@ rules:
       - serviceaccounts
     verbs:
       - get
-      - list      
+      - list   
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - delete
+      - patch
 {{- if eq .Values.cloud.type "AZURE" }}      
   - apiGroups: 
       - "spv.no"
