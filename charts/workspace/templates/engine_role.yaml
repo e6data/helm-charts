@@ -22,12 +22,14 @@ rules:
     resources:
       - services
       - pods
-      # - configmaps
+      - configmaps
       # - secrets
     verbs:
       - get
       - list
       - watch
+      - update
+      - patch
   - apiGroups:
       - "apps"
     resources:
