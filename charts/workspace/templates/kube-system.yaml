@@ -3,8 +3,8 @@ kind: Role
 metadata:
   labels:
     {{- include "e6data.common.labels" . | nindent 4 }}
-  name: {{ include "e6data.name" . }}-platform-role
-  {{ include "e6data.namespace" . }}
+  name: {{ include "e6data.name" . }}-platform-kube-system-role
+  namespace: kube-system
 rules:
   - apiGroups:
       - ""
@@ -12,12 +12,6 @@ rules:
       - pods/portforward
     verbs: 
       - get
-      - create
-  - apiGroups:
-      - ""
-    resources: 
-      - pods/exec
-    verbs: 
       - create
   - apiGroups:
       - ""
@@ -109,6 +103,7 @@ rules:
       - deployments/patch
       - deployments/patch/status
       - deployments/rollback
+      - persistentvolumeclaims
     verbs:
       - get
       - list
@@ -130,75 +125,14 @@ rules:
       - update
       - delete
       - patch
-  - apiGroups:
-      - ""
-    resources:
-      - serviceaccounts
-    verbs:
-      - get
-      - list   
-  - apiGroups:
-      - ""
-    resources:
-      - persistentvolumeclaims
-    verbs:
-      - get
-      - list
-      - watch
-      - create
-      - update
-      - delete
-      - patch
-{{- if eq .Values.cloud.type "AZURE" }}      
-  - apiGroups: 
-      - "spv.no"
-    resources: 
-      - azurekeyvaultsecrets
-    verbs:
-      - create
-      - get
-      - list
-      - watch
-      - update
-      - delete
-      - patch
-  - apiGroups:
-    - alb.networking.azure.io
-    resources:
-    - healthcheckpolicy
-    - routepolicies
-    verbs:
-    - get
-    - list
-    - watch
-    - create
-    - update
-    - delete
-    - patch
-  - apiGroups:
-    - gateway.networking.k8s.io
-    resources:
-    - gateways
-    - httproutes
-    - grpcroutes
-    verbs:
-    - get
-    - list
-    - watch
-    - create
-    - update
-    - delete
-    - patch
-{{ end }} 
- 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
     {{- include "e6data.common.labels" . | nindent 4 }}
-  name: {{ include "e6data.name" . }}-platform-role-binding
-  {{ include "e6data.namespace" . }}  
+  name: {{ include "e6data.name" . }}-platform-kube-system-role-binding
+  namespace: kube-system 
 subjects:
 {{- range $rbacUser := .Values.cloud.control_plane_user }}
   - kind: User
@@ -207,40 +141,4 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ include "e6data.name" . }}-platform-role
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: {{ include "e6data.name" . }}-platform-cluster-role
-  labels: 
-    {{- include "e6data.common.labels" . | nindent 4 }}
-  {{ include "e6data.namespace" . }}
-rules:
-  - apiGroups:
-      - ""
-    resources: 
-      - nodes
-    verbs: 
-      - get
-      - list
-      - watch
-      - delete
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    {{- include "e6data.common.labels" . | nindent 4 }}
-  name: {{ include "e6data.name" . }}-platform-cluster-role-binding
-subjects:
-{{- range $rbacUser := .Values.cloud.control_plane_user }}
-  - kind: User
-    name: {{ $rbacUser | quote }}
-{{ end }}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: {{ include "e6data.name" . }}-platform-cluster-role
+  name: {{ include "e6data.name" . }}-platform-kube-system-role
